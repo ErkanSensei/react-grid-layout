@@ -437,6 +437,8 @@ will be draggable.
   isDraggable: ?boolean = true,
   // If false, will not be resizable. Overrides `static`.
   isResizable: ?boolean = true
+   // If true and draggable, item will be moved only within grid.
+  isBounded: ?boolean = false
 }
 ```
 

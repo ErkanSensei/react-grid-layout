@@ -66,6 +66,7 @@ export type Props = {
   maxRows: number,
   isDraggable: boolean,
   isResizable: boolean,
+  isBounded: boolean,
   isDroppable: boolean,
   preventCollision: boolean,
   useCSSTransforms: boolean,
@@ -176,6 +177,7 @@ export default class ReactGridLayout extends React.Component<Props, State> {
     //
     isDraggable: PropTypes.bool,
     isResizable: PropTypes.bool,
+    isBounded: PropTypes.bool,
     // If true, grid items won't change position when being dragged over.
     preventCollision: PropTypes.bool,
     // Use CSS transforms instead of top/left
@@ -251,6 +253,7 @@ export default class ReactGridLayout extends React.Component<Props, State> {
     margin: [10, 10],
     isDraggable: true,
     isResizable: true,
+    isBounded: false,
     isDroppable: false,
     useCSSTransforms: true,
     transformScale: 1,
@@ -622,6 +625,7 @@ export default class ReactGridLayout extends React.Component<Props, State> {
         rowHeight={rowHeight}
         isDraggable={false}
         isResizable={false}
+        isBounded={false}
         useCSSTransforms={useCSSTransforms}
         transformScale={transformScale}
       >
@@ -651,6 +655,7 @@ export default class ReactGridLayout extends React.Component<Props, State> {
       maxRows,
       isDraggable,
       isResizable,
+      isBounded,
       useCSSTransforms,
       transformScale,
       draggableCancel,
@@ -666,6 +671,10 @@ export default class ReactGridLayout extends React.Component<Props, State> {
       !l.static && isResizable && (l.isResizable || l.isResizable == null)
     );
 
+    const bounded = Boolean(
+      draggable && isBounded && (l.isBounded || l.isBounded == null)
+    );
+    
     return (
       <GridItem
         containerWidth={width}
@@ -684,6 +693,7 @@ export default class ReactGridLayout extends React.Component<Props, State> {
         onResizeStop={this.onResizeStop}
         isDraggable={draggable}
         isResizable={resizable}
+        isBounded={isBounded}
         useCSSTransforms={useCSSTransforms && mounted}
         usePercentages={!mounted}
         transformScale={transformScale}
